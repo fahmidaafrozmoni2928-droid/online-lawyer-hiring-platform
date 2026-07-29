@@ -1,15 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
-const Navbar = ({ user, role = "user" }) => {
+const Navbar = () => {
+
+  const router = useRouter();
+  
+
+ const { 
+        data: session, 
+       
+    } = authClient.useSession() 
+    const user = session?.user
+
+    console.log(session)
+
+   
+
+
+     const handleSignOut = async() => {
+await authClient.signOut();
+    }
+
   const pathname = usePathname();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [dashboardOpen, setDashboardOpen] = useState(false);
+  
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -18,23 +38,6 @@ const Navbar = ({ user, role = "user" }) => {
 
   ];
 
-  const dashboardLinks = {
-    admin: [
-      { name: "Admin Dashboard", path: "/dashboard/admin" },
-      { name: "Manage Lawyers", path: "/dashboard/manage-lawyers" },
-      { name: "Manage Users", path: "/dashboard/manage-users" },
-    ],
-    lawyer: [
-      { name: "Lawyer Dashboard", path: "/dashboard/lawyer" },
-      { name: "Appointments", path: "/dashboard/appointments" },
-      { name: "Profile", path: "/dashboard/profile" },
-    ],
-    user: [
-      { name: "My Dashboard", path: "/dashboard" },
-      { name: "My Bookings", path: "/dashboard/bookings" },
-      { name: "Profile", path: "/dashboard/profile" },
-    ],
-  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -66,40 +69,14 @@ const Navbar = ({ user, role = "user" }) => {
               </Link>
             ))}
 
-            {/* Dashboard Dropdown */}
-            {user && (
-              <div className="relative">
-                <button
-                  onClick={() =>
-                    setDashboardOpen(!dashboardOpen)
-                  }
-                  className="flex items-center gap-1 font-medium text-gray-700 hover:text-blue-600"
-                >
-                  Dashboard
-                  <ChevronDown size={18} />
-                </button>
-
-                {dashboardOpen && (
-                  <div className="absolute top-10 right-0 bg-white shadow-lg rounded-lg w-52 py-2">
-                    {dashboardLinks[role]?.map((item) => (
-                      <Link
-                        key={item.path}
-                        href={item.path}
-                        className="block px-4 py-2 hover:bg-gray-100"
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-
+           
+            
             {/* Search */}
             <form className="flex">
               <input
                 type="text"
                 placeholder="Search lawyers..."
+               
                 className="border rounded-l-lg px-3 py-2 focus:outline-none"
               />
               <button
@@ -110,18 +87,27 @@ const Navbar = ({ user, role = "user" }) => {
             </form>
 
             {/* Auth */}
-            {user ? (
-              <button className="bg-red-500 text-white px-4 py-2 rounded-lg">
-                Logout
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-              >
-                Login
-              </Link>
-            )}
+           {user ? (
+  <button onClick={handleSignOut} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+    Logout
+  </button>
+) : (
+  <div className="flex items-center gap-2">
+    <Link
+      href="/login"
+      className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+    >
+      Login
+    </Link>
+
+    <Link
+      href="/register"
+      className=" bg-blue-600 text-white px-4 py-2 rounded-lg"
+    >
+      Register
+    </Link>
+  </div>
+)}
           </div>
 
           {/* Mobile Button */}
@@ -151,47 +137,45 @@ const Navbar = ({ user, role = "user" }) => {
               </Link>
             ))}
 
-            {/* Dashboard Mobile */}
-            {user && (
-              <>
-                <h3 className="font-semibold">Dashboard</h3>
-
-                {dashboardLinks[role]?.map((item) => (
-                  <Link
-                    key={item.path}
-                    href={item.path}
-                    className="block pl-4 text-gray-700"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </>
-            )}
+           
 
             {/* Search */}
             <form className="flex">
               <input
                 type="text"
                 placeholder="Search lawyers..."
+                 
                 className="border px-3 py-2 rounded-l-lg w-full"
               />
-              <button className="bg-blue-600 text-white px-4 rounded-r-lg">
-                Go
+               <button
+                className="bg-blue-600 text-white px-4 rounded-r-lg"
+              >
+                Search
               </button>
+              
             </form>
 
-            {user ? (
-              <button className="w-full bg-red-500 text-white py-2 rounded-lg">
-                Logout
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                className="block text-center bg-blue-600 text-white py-2 rounded-lg"
-              >
-                Login
-              </Link>
-            )}
+           {user ? (
+  <button onClick={handleSignOut} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+    Logout
+  </button>
+) : (
+  <div className="flex items-center gap-2">
+    <Link
+      href="/login"
+      className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+    >
+      Login
+    </Link>
+
+    <Link
+      href="/register"
+      className="border border-blue-600 text-white px-4 py-2 rounded-lg"
+    >
+      Register
+    </Link>
+  </div>
+)}
           </div>
         )}
       </div>

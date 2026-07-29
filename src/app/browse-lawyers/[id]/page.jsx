@@ -1,7 +1,9 @@
 'use client'
 
+import { authClient } from "@/lib/auth-client";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const lawyerDetailsPage = () => {
   const { id } =  useParams();
@@ -18,6 +20,78 @@ setLawyer(data);
  setLoading(false);
       })
   }, [id]);
+
+
+  const handleHireButton = async () => {
+  const { data: session } = await authClient.getSession();
+
+  const hiringData = {
+    userEmail: session?.user?.email || '',
+    userName: session?.user?.name || '',
+ lawyerEmail: lawyer.email,
+    lawyerId: lawyer._id,
+    lawyerName: lawyer.name,
+   // photo: lawyer.photo,
+    specialization: lawyer.specialization,
+    consultationFee: lawyer.consultationFee,
+
+    hiringDate: new Date().toLocaleDateString(),
+  };
+  console.log(hiringData);
+
+ 
+  const res = await fetch("http://localhost:8000/hirings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(hiringData),
+  });
+
+  const data = await res.json();
+
+  if (data.insertedId) {
+    toast.success("Lawyer hired successfully");
+  }
+};
+
+ const handleCommentForm = async (e) => {
+  e.preventDefault();
+
+  const { data: session } = await authClient.getSession();
+
+  const commentData = {
+     
+    lawyerId: lawyer._id,
+    lawyerName: lawyer.name,
+
+    userEmail: session?.user?.email || '',
+    userName: session?.user?.name || '',
+
+    comment: e.target.comment.value,
+
+    createdAt: new Date().toLocaleDateString(),
+  };
+
+  console.log(commentData);
+  const res = await fetch("http://localhost:8000/comments", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    toast.success("Comment added successfully");
+    e.target.reset();
+  } else {
+    alert(data.message);
+  }
+};
+
 
   
 
@@ -53,7 +127,19 @@ setLawyer(data);
       <p>Rating:{lawyer.rating}</p>
       <p>Consultation Fee:{lawyer?.consultationFee}</p>
       <p>Status: {lawyer?.status}</p>
-      <p></p>
+      <button onClick={handleHireButton} className="btn bg-blue-400 text-white mt-4">Hire Now</button>
+      <form onSubmit={handleCommentForm} className="mt-8">
+  <textarea
+    name="comment"
+    className="textarea textarea-bordered w-full"
+    placeholder="Write your comment..."
+    required
+  ></textarea>
+
+  <button className="btn btn-primary mt-4">
+    Submit Comment
+  </button>
+</form>
     </div>
     </div>
   )}

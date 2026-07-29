@@ -7,6 +7,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {motion} from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Card from "./Card";
+
+  
+
 
 const slides = [
   {
@@ -29,7 +34,23 @@ const slides = [
   },
 ];
 
+
+
+
 export default function Banner() {
+
+  //const [lawyers, setLawyers] = useState([]);
+   
+
+  //useEffect(() => {
+   // fetch("http://localhost:8000/featured-lawyers")
+   // .then(res => res.json())
+   // .then(data => {
+     // console.log(data);
+     // setLawyers(data);
+   // });
+ // }, []);
+  
   return (
     <div className="w-full">
       <Swiper
@@ -73,6 +94,32 @@ export default function Banner() {
           </SwiperSlide>
         ))}
       </Swiper>
+
+    {/*  <div>
+
+        <h2 className="font-bold text-3xl pt-8 flex justify-center items-center ">Latest Lawyers</h2>
+        <motion.div  initial={{ opacity: 0, y: 50 }}
+         whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true}}
+          transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3  mx-auto px-4" >
+        {
+          
+          lawyers.map((lawyer) => (
+            <div  key={lawyer._id}>
+              <Card lawyer={lawyer}></Card>
+
+            </div>
+          )
+
+          )
+          
+        }
+        </motion.div>
+      </div>*/}
+
+  
     </div>
   );
 }
