@@ -92,7 +92,9 @@ setLawyer(data);
   }
 };
 
-
+if(!lawyer){
+  return <div className="text-center mt-10">Loading lawyer details...</div>
+}
   
 
   return (
@@ -117,14 +119,14 @@ setLawyer(data);
     <div className="p-2 rounded-lg shadow-sm bg-base-100">
       <img src={lawyer?.photo} alt={lawyer?.name} className="w-full h-72 object-contain rounded" />
       <h1 className="font-bold text-xl">{lawyer?.name}</h1>
-      <p>Specialization:{lawyer.specialization}</p>
+      <p>Specialization:{lawyer?.specialization}</p>
       <p>Bio:{lawyer?.bio}</p>
-      <p>Date Joined:{lawyer.dateJoined}</p>
-      <p>Experience:{lawyer.experience}</p>
-      <p>Location:{lawyer.location}</p>
-      <p>Email:{lawyer.email}</p>
-      <p>Phone:{lawyer.phone}</p>
-      <p>Rating:{lawyer.rating}</p>
+      <p>Date Joined:{lawyer?.dateJoined}</p>
+      <p>Experience:{lawyer?.experience}</p>
+      <p>Location:{lawyer?.location}</p>
+      <p>Email:{lawyer?.email}</p>
+      <p>Phone:{lawyer?.phone}</p>
+      <p>Rating:{lawyer?.rating}</p>
       <p>Consultation Fee:{lawyer?.consultationFee}</p>
       <p>Status: {lawyer?.status}</p>
       <button onClick={handleHireButton} className="btn bg-blue-400 text-white mt-4">Hire Now</button>
