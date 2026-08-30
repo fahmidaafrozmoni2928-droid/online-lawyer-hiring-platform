@@ -25,7 +25,7 @@ const {
   }
 
   if (status === 'complete') {
-await fetch("http://localhost:8000/payment", {
+await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/payment`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

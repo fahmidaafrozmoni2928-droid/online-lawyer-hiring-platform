@@ -29,7 +29,7 @@ const browseLawyersPge = () => {
     useEffect(() => {
      
      setLoading(true);
-    fetch(`http://localhost:8000/lawyers?search=${search}&specialization=${specialization}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lawyers?search=${search}&specialization=${specialization}`)
       .then((res) => res.json())
       .then((data) => setLawyers(data));
       setLoading(false);

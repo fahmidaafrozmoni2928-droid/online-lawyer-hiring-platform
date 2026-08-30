@@ -42,7 +42,7 @@ const handlePayButton = async (hire) => {
       if (!session?.user?.email) return;
 
       const res = await fetch(
-        `http://localhost:8000/hirings/user/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/hirings/user/${session.user.email}`
       );
 
       const data = await res.json();

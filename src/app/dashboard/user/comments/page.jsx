@@ -17,7 +17,7 @@ export default function CommentsPage() {
   if (!confirmDelete) return;
 
   const res = await fetch(
-    `http://localhost:8000/comments/${id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/comments/${id}`,
     {
       method: "DELETE",
     }
@@ -45,7 +45,7 @@ const handleEditButton = async (comment) => {
   if (!updatedComment) return;
 
   const res = await fetch(
-    `http://localhost:8000/comments/${comment._id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/comments/${comment._id}`,
     {
       method: "PATCH",
       headers: {
@@ -80,7 +80,7 @@ const handleEditButton = async (comment) => {
       if (!session?.user?.email) ;
 
       const res = await fetch(
-        `http://localhost:8000/comments/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/comments/${session.user.email}`
       );
 
       const data = await res.json();

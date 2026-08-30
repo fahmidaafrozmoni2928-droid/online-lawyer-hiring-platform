@@ -9,7 +9,7 @@ export default function AllTransactionsPage() {
   useEffect(() => {
     const loadTransactions = async () => {
       try {
-        const res = await fetch("http://localhost:8000/all-transactions");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/all-transactions`);
         const data = await res.json();
 
         setTransactions(data);

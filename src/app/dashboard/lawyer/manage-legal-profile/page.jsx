@@ -16,7 +16,7 @@ export default function manageLegalProfilePage() {
   
         
         const res = await fetch(
-          `http://localhost:8000/lawyers/email/${session.user.email}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/lawyers/email/${session.user.email}`
         );
   
         const data = await res.json();

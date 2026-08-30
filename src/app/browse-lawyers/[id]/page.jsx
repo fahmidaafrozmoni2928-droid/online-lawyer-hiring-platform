@@ -12,7 +12,7 @@ const [loading, setLoading] = useState(true);
 
   useEffect(() => {
      setLoading(true);
-    fetch(`http://localhost:8000/lawyers/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lawyers/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -40,7 +40,7 @@ setLawyer(data);
   console.log(hiringData);
 
  
-  const res = await fetch("http://localhost:8000/hirings", {
+  const res = await fetch(`{process.env.NEXT_PUBLIC_BASE_URL}/hirings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -74,7 +74,7 @@ setLawyer(data);
   };
 
   console.log(commentData);
-  const res = await fetch("http://localhost:8000/comments", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

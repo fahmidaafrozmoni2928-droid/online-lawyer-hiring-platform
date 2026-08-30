@@ -16,7 +16,7 @@ export default function myProfilePage() {
 
       
       const res = await fetch(
-        `http://localhost:8000/user/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`
       );
 
       const data = await res.json();

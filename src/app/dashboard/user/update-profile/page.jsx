@@ -17,7 +17,7 @@ export default function UpdateProfilePage() {
       if (!session?.user?.email) return;
 
       const res = await fetch(
-        `http://localhost:8000/user/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`
       );
 
       const data = await res.json();
@@ -39,7 +39,7 @@ export default function UpdateProfilePage() {
 
     const { data: session } = await authClient.getSession();
     const res = await fetch(
-      `http://localhost:8000/user/${session.user.email}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`,
       {
         method: "PATCH",
         headers: {

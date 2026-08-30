@@ -12,7 +12,7 @@ export default function HiringHistoryPage() {
    const handleAcceptButton = async (id) => {
  
    const res = await fetch(
-      `http://localhost:8000/hirings/accept/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/hirings/accept/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -33,7 +33,7 @@ export default function HiringHistoryPage() {
  const handleRejectButton = async (id) => {
  
    const res = await fetch(
-      `http://localhost:8000/hirings/reject/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/hirings/reject/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -61,7 +61,7 @@ export default function HiringHistoryPage() {
       console.log(session.user.email);
 
       const res = await fetch(
-        `http://localhost:8000/hirings/lawyer/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/hirings/lawyer/${session.user.email}`
       );
 
       const data = await res.json();

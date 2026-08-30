@@ -6,7 +6,7 @@ export default function Analytics() {
   const [analytics, setAnalytics] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:8000/analytics")
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics`)
       .then((res) => res.json())
       .then((data) => setAnalytics(data));
   }, []);

@@ -7,7 +7,7 @@ export default function AdminUsersTable() {
   const [users, setUsers] = useState([]);
 
   const handleRoleChange = async (id, role) => {
-    const res = await fetch(`http://localhost:8000/users/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default function AdminUsersTable() {
     if (!confirmDelete) return;
   
     const res = await fetch(
-      `http://localhost:8000/users/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/users/${id}`,
       {
         method: "DELETE",
       }
@@ -55,7 +55,7 @@ export default function AdminUsersTable() {
   useEffect(() => {
     async function getUsers() {
       try {
-        const res = await fetch("http://localhost:8000/users");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/users`);
         const data = await res.json();
         setUsers(data);
       } catch (error) {
