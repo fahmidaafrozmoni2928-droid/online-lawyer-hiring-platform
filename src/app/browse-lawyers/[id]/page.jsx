@@ -40,7 +40,7 @@ setLawyer(data);
   console.log(hiringData);
 
  
-  const res = await fetch(`{process.env.NEXT_PUBLIC_BASE_URL}/hirings`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hirings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
