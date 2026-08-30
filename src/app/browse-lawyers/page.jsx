@@ -17,7 +17,7 @@ const browseLawyersPge = () => {
 
   
   useEffect(() => {
-  fetch(`http://localhost:8000/pagination?page=${page}&limit=${limit}`)
+  fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/pagination?page=${page}&limit=${limit}`)
     .then(res => res.json())
     .then(data => {
       setLawyers(data.lawyers);
