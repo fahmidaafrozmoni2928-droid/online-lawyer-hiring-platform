@@ -31,7 +31,7 @@ setLawyer(data);
  lawyerEmail: lawyer.email,
     lawyerId: lawyer._id,
     lawyerName: lawyer.name,
-   // photo: lawyer.photo,
+   
     specialization: lawyer.specialization,
     consultationFee: lawyer.consultationFee,
 

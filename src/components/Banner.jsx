@@ -39,17 +39,10 @@ const slides = [
 
 export default function Banner() {
 
-  //const [lawyers, setLawyers] = useState([]);
+  
    
 
-  //useEffect(() => {
-   // fetch("http://localhost:8000/featured-lawyers")
-   // .then(res => res.json())
-   // .then(data => {
-     // console.log(data);
-     // setLawyers(data);
-   // });
- // }, []);
+  
   
   return (
     <div className="w-full">
