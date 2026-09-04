@@ -37,6 +37,15 @@ export default function UpdateProfilePage() {
       image: form.image.value,
     };
 
+     if (data.modifiedCount > 0) {
+    alert("Profile updated successfully!");
+    
+   
+    
+  } else {
+    alert("No changes were made.");
+  }
+
     const { data: session } = await authClient.getSession();
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`,
