@@ -93,7 +93,7 @@ console.log("Error:", error);
   <select name="role" className="select" >
     <option value="user">User</option>
     <option value="lawyer">Lawyer</option>
-    
+    <option value="admin">Admin</option>
   </select>
 
   <button type="submit" className="btn bg-blue-400 text-white mt-4">Register</button>
