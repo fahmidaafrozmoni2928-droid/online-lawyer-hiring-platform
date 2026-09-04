@@ -27,38 +27,48 @@ export default function UpdateProfilePage() {
     loadProfile();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const updatedUser = {
-      name: form.name.value,
-      image: form.image.value,
-    };
+  const updatedUser = {
+    name: form.name.value,
+    image: form.image.value,
+  };
 
-     if (data.modifiedCount > 0) {
+  const { data: session } = await authClient.getSession();
+
+  if (!session?.user?.email) {
+    alert("User not found");
+    return;
+  }
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedUser),
+    }
+  );
+
+  const data = await res.json();
+
+  if (data.modifiedCount > 0) {
     alert("Profile updated successfully!");
-    
-   
-    
+
+    setProfile((prev) => ({
+      ...prev,
+      ...updatedUser,
+    }));
   } else {
     alert("No changes were made.");
   }
+};
 
-    const { data: session } = await authClient.getSession();
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/user/${session.user.email}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-      }
-    );
-
-}
 
    
 
