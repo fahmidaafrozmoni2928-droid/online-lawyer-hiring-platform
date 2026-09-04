@@ -27,7 +27,7 @@ export default function UpdateProfilePage() {
     loadProfile();
   }, []);
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const form = e.target;
@@ -57,7 +57,7 @@ export default function UpdateProfilePage() {
 
   const data = await res.json();
 
-  if (data.modifiedCount > 0) {
+  if (res.ok && data.modifiedCount > 0) {
     alert("Profile updated successfully!");
 
     setProfile((prev) => ({
@@ -65,9 +65,10 @@ export default function UpdateProfilePage() {
       ...updatedUser,
     }));
   } else {
-    alert("No changes were made.");
+    alert(data.message || "No changes were made.");
   }
 };
+
 
 
    
